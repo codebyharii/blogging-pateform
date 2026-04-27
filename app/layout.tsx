@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lora, Poppins } from "next/font/google";
 import "./globals.css";
+import { Footer } from "@/components/footer";
 import { SiteNav } from "@/components/site-nav";
 
 const poppins = Poppins({
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <SiteNav />
         <main className="page-main">{children}</main>
+        <Footer />
       </body>
     </html>
   );
