@@ -9,11 +9,17 @@ export function getSupabaseAdmin() {
   }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const serviceRole =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SERVICE_ROLE;
 
   if (!supabaseUrl || !serviceRole) {
+    const missing = [];
+    if (!supabaseUrl) missing.push("NEXT_PUBLIC_SUPABASE_URL");
+    if (!serviceRole) missing.push("SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SERVICE_ROLE");
+
     throw new Error(
-      "Supabase environment variables are missing. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.",
+      `Supabase environment variables are missing: ${missing.join(", ")}.\n` +
+        "Add them to your .env.local or your hosting environment (see README).",
     );
   }
 
